@@ -1,0 +1,67 @@
+{
+  "userId": "basic-user",
+  "version": "1.0.0",
+  "modules": [
+    {
+      "name": "dashboard",
+      "displayName": "Dashboard",
+      "path": "/",
+      "component": "Dashboard",
+      "enabled": true,
+      "order": 1,
+      "icon": "📊",
+      "description": "Basic dashboard view",
+      "category": "core",
+      "permissions": ["read"]
+    },
+    {
+      "name": "profile",
+      "displayName": "Profile",
+      "path": "/profile",
+      "component": "Profile",
+      "enabled": true,
+      "order": 2,
+      "icon": "👤",
+      "description": "Basic profile information",
+      "category": "user",
+      "permissions": ["read"]
+    },
+    {
+      "name": "cart",
+      "displayName": "Cart",
+      "path": "/cart",
+      "component": "Cart",
+      "enabled": true,
+      "order": 3,
+      "icon": "🛒",
+      "description": "Basic shopping cart",
+      "category": "shopping",
+      "permissions": ["read", "write"]
+    },
+    {
+      "name": "orders",
+      "displayName": "Orders",
+      "path": "/orders",
+      "component": "Orders",
+      "enabled": true,
+      "order": 4,
+      "icon": "📦",
+      "description": "Basic order history",
+      "category": "shopping",
+      "permissions": ["read"]
+    }
+  ],
+  "theme": "light",
+  "layout": "default",
+  "lastUpdated": "2024-01-15T10:00:00Z",
+  "features": {
+    "analytics": false,
+    "personalization": false,
+    "notifications": false,
+    "advancedSearch": false,
+    "wishlist": false,
+    "bulkOperations": false,
+    "exportData": false,
+    "advancedFilters": false
+  }
+}

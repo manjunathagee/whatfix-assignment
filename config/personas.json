@@ -1,0 +1,34 @@
+{
+  "personas": [
+    {
+      "id": "default-user",
+      "name": "Default User",
+      "description": "Standard user with balanced features and moderate access",
+      "configurationId": "config-default-user"
+    },
+    {
+      "id": "power-user",
+      "name": "Power User",
+      "description": "Advanced user with enhanced features and analytics access",
+      "configurationId": "config-power-user"
+    },
+    {
+      "id": "admin-user",
+      "name": "Admin User",
+      "description": "Full access to all features with administrative capabilities",
+      "configurationId": "config-admin-user"
+    },
+    {
+      "id": "basic-user",
+      "name": "Basic User",
+      "description": "Limited access user with minimal features",
+      "configurationId": "config-basic-user"
+    },
+    {
+      "id": "guest-user",
+      "name": "Guest User",
+      "description": "Temporary access user with read-only permissions",
+      "configurationId": "config-guest-user"
+    }
+  ]
+}
