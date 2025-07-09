@@ -14,7 +14,6 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { useGlobalActions } from "@/hooks/useGlobalState";
 
 interface HeaderProps {
   title?: string;
@@ -30,14 +29,14 @@ const Header: React.FC<HeaderProps> = ({
   currentUser = "default-user",
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>("");
-  const { navigateTo } = useGlobalActions();
+  // Navigation is handled by the shell app through onCategoryClick prop
 
   const categories = [
+    { id: "home", name: "Home", icon: "🏠" },
     { id: "clothing", name: "Clothing", icon: "👕" },
     { id: "electronics", name: "Electronics", icon: "📱" },
     { id: "mobiles", name: "Mobiles", icon: "📲" },
     { id: "books", name: "Books", icon: "📚" },
-    { id: "home", name: "Home & Garden", icon: "🏠" },
   ];
 
   const users = [
@@ -74,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
     onCategoryClick(category);
-    navigateTo(`/category/${category}`, "category");
+    // Navigation is handled by the shell app through onCategoryClick prop
   };
 
   const handleUserSwitch = (userId: string) => {
@@ -139,7 +138,10 @@ const Header: React.FC<HeaderProps> = ({
                   </svg>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-[480px] bg-white border shadow-lg" align="end">
+              <DropdownMenuContent
+                className="w-[480px] bg-white border shadow-lg"
+                align="end"
+              >
                 <DropdownMenuLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Switch User
                 </DropdownMenuLabel>

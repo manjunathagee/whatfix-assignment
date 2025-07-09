@@ -1,44 +1,53 @@
-import React, { Suspense } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import LoadingSpinner from './LoadingSpinner'
-import { useConfiguration } from '../contexts/ConfigurationContext'
+import React, { Suspense } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
+import { useConfiguration } from "../contexts/ConfigurationContext";
+import { useEventBus } from "../services/eventBus";
 
-const RemoteHeader = React.lazy(() => import('headerMfe/Header'))
-const RemoteLeftNav = React.lazy(() => import('leftNavMfe/LeftNav'))
+const RemoteHeader = React.lazy(() => import("headerMfe/Header"));
+const RemoteLeftNav = React.lazy(() => import("leftNavMfe/LeftNav"));
 
 interface LayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { state, changePersona } = useConfiguration()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { state, changePersona } = useConfiguration();
+
+  // Listen for navigation events from Header MFE
+  useEventBus("navigation:change", ({ path, module }) => {
+    console.log("Navigation event received:", { path, module });
+    navigate(path);
+  });
 
   const handleCategoryClick = (category: string) => {
-    console.log('Category clicked:', category)
-    navigate('/')
-  }
+    console.log("Category clicked:", category);
+    navigate(`/category/${category}`);
+  };
 
   const handleCartClick = () => {
-    console.log('Cart clicked')
-    navigate('/cart')
-  }
+    console.log("Cart clicked");
+    navigate("/cart");
+  };
 
-  const handleNavItemClick = (item: any) => {
-    console.log('Navigation item clicked:', item)
-    navigate(item.url)
-  }
+  const handleNavItemClick = (item: { url: string }) => {
+    console.log("Navigation item clicked:", item);
+    navigate(item.url);
+  };
 
   const handleUserSwitch = (userId: string) => {
-    console.log('User switch requested:', userId)
-    changePersona(userId)
-  }
+    console.log("User switch requested:", userId);
+    changePersona(userId);
+    // Navigate to home category when user switches
+    navigate("/category/home");
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Suspense fallback={<LoadingSpinner />}>
-        <RemoteHeader 
+        <RemoteHeader
           title="Whatfix E-commerce"
           cartCount={3}
           onCategoryClick={handleCategoryClick}
@@ -47,25 +56,23 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           currentUser={state.currentPersona}
         />
       </Suspense>
-      
+
       <div className="flex flex-1">
         <aside className="shadow-md bg-white">
           <Suspense fallback={<LoadingSpinner />}>
-            <RemoteLeftNav 
+            <RemoteLeftNav
               activeItem={location.pathname}
               onItemClick={handleNavItemClick}
             />
           </Suspense>
         </aside>
-        
+
         <main className="flex-1 p-6 bg-gray-50">
-          <Suspense fallback={<LoadingSpinner />}>
-            {children}
-          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
