@@ -12,12 +12,13 @@
   "packageManager": "pnpm@8.15.0",
   "scripts": {
     "dev": "concurrently \"pnpm --filter shell-app dev\" \"pnpm --filter header-mfe dev\" \"pnpm --filter left-nav-mfe dev\" \"pnpm --filter cart-mfe dev\" \"pnpm --filter orders-mfe dev\" \"pnpm --filter profile-mfe dev\"",
-    "dev:clean": "./scripts/start-dev.sh",
-    "kill-ports": "./scripts/kill-ports.sh",
+    "dev:static": "pnpm build:mfes && pnpm copy:assets && pnpm --filter shell-app dev",
+    "dev:preview": "bash scripts/kill-ports.sh && pnpm build:mfes && pnpm serve:mfes",
     "build": "pnpm build:mfes && pnpm copy:assets && pnpm --filter shell-app build",
     "build:mfes": "pnpm --filter header-mfe build && pnpm --filter left-nav-mfe build && pnpm --filter cart-mfe build && pnpm --filter orders-mfe build && pnpm --filter profile-mfe build",
-    "copy:assets": "mkdir -p apps/shell-app/public/header-mfe && cp -r apps/header-mfe/dist/* apps/shell-app/public/header-mfe/ && mkdir -p apps/shell-app/public/left-nav-mfe && cp -r apps/left-nav-mfe/dist/* apps/shell-app/public/left-nav-mfe/",
-    "preview": "pnpm --filter shell-app preview",
+    "copy:assets": "mkdir -p apps/shell-app/public/header-mfe && cp -r apps/header-mfe/dist/* apps/shell-app/public/header-mfe/ && mkdir -p apps/shell-app/public/left-nav-mfe && cp -r apps/left-nav-mfe/dist/* apps/shell-app/public/left-nav-mfe/ && mkdir -p apps/shell-app/public/cart-mfe && cp -r apps/cart-mfe/dist/* apps/shell-app/public/cart-mfe/ && mkdir -p apps/shell-app/public/orders-mfe && cp -r apps/orders-mfe/dist/* apps/shell-app/public/orders-mfe/ && mkdir -p apps/shell-app/public/profile-mfe && cp -r apps/profile-mfe/dist/* apps/shell-app/public/profile-mfe/",
+    "serve:mfes": "concurrently \"pnpm --filter header-mfe preview --port 3001\" \"pnpm --filter left-nav-mfe preview --port 3002\" \"pnpm --filter cart-mfe preview --port 3003\" \"pnpm --filter orders-mfe preview --port 3004\" \"pnpm --filter profile-mfe preview --port 3005\" \"pnpm --filter shell-app dev\"",
+    "preview": "pnpm build && pnpm --filter shell-app preview",
     "type-check": "pnpm --filter '*' run type-check",
     "lint": "pnpm --filter '*' run lint",
     "clean": "pnpm --filter '*' run clean"
