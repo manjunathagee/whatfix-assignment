@@ -23,7 +23,8 @@
     "type-check": "pnpm --filter '*' run type-check",
     "lint": "pnpm --filter '*' run lint",
     "clean": "pnpm --filter '*' run clean",
-    "kill-ports": "bash scripts/kill-ports.sh"
+    "kill-ports": "bash scripts/kill-ports.sh",
+    "setup:production": "bash scripts/setup-production-env.sh"
   },
   "devDependencies": {
     "concurrently": "^9.2.0"
