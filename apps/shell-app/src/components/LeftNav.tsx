@@ -77,7 +77,7 @@ const LeftNav: React.FC = () => {
                 modules
               </div>
               <div
-                className="mt-1 text-xs truncate"
+                className="mt-1 text-xs whitespace-normal break-words"
                 title={
                   state.config.features &&
                   Object.entries(state.config.features)
