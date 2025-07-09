@@ -15,7 +15,7 @@ export interface DashboardConfig {
   userId: string;
   version: string;
   modules: ModuleConfig[];
-  theme: 'light' | 'dark';
+  theme: 'light';
   layout: 'default' | 'compact';
   lastUpdated: string;
   features?: {
@@ -26,7 +26,7 @@ export interface DashboardConfig {
 }
 
 export interface UserPreferences {
-  theme: 'light' | 'dark';
+  theme: 'light';
   compactMode: boolean;
   moduleOrder: string[];
   favoriteModules?: string[];

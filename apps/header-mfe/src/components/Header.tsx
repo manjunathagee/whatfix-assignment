@@ -7,7 +7,6 @@ interface HeaderProps {
   onCartClick?: () => void
   onUserSwitch?: (userId: string) => void
   currentUser?: string
-  theme?: 'light' | 'dark'
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -16,8 +15,7 @@ const Header: React.FC<HeaderProps> = ({
   onCategoryClick = () => {},
   onCartClick = () => {},
   onUserSwitch = () => {},
-  currentUser = 'default-user',
-  theme = 'light'
+  currentUser = 'default-user'
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('')
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
@@ -50,20 +48,14 @@ const Header: React.FC<HeaderProps> = ({
     setIsUserMenuOpen(false)
   }
 
-  const isDark = theme === 'dark'
-  const headerBg = isDark ? 'bg-gray-900' : 'bg-white'
-  const textColor = isDark ? 'text-white' : 'text-gray-900'
-  const borderColor = isDark ? 'border-gray-700' : 'border-gray-200'
-  const hoverColor = isDark ? 'hover:text-gray-300' : 'hover:text-gray-600'
-
   return (
-    <header className={`${headerBg} shadow-sm border-b ${borderColor}`}>
+    <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo/Title */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className={`text-xl font-bold ${textColor}`}>
+              <h1 className="text-xl font-bold text-gray-900">
                 {title}
               </h1>
             </div>
@@ -77,10 +69,8 @@ const Header: React.FC<HeaderProps> = ({
                 onClick={() => handleCategoryClick(category.id)}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   activeCategory === category.id
-                    ? isDark
-                      ? 'bg-gray-700 text-white'
-                      : 'bg-blue-100 text-blue-700'
-                    : `${textColor} ${hoverColor}`
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 <span className="text-lg">{category.icon}</span>
@@ -92,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Cart and Actions */}
           <div className="flex items-center space-x-4">
             {/* Search Icon */}
-            <button className={`p-2 rounded-md ${textColor} ${hoverColor} transition-colors`}>
+            <button className="p-2 rounded-md transition-colors text-gray-700 hover:text-gray-900">
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -101,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({
             {/* Cart Button */}
             <button
               onClick={onCartClick}
-              className={`relative p-2 rounded-md ${textColor} ${hoverColor} transition-colors`}
+              className="relative p-2 rounded-md transition-colors text-gray-700 hover:text-gray-900"
             >
               <span className="sr-only">View cart</span>
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({
             </button>
 
             {/* Notifications */}
-            <button className={`p-2 rounded-md ${textColor} ${hoverColor} transition-colors`}>
+            <button className="p-2 rounded-md transition-colors text-gray-700 hover:text-gray-900">
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
@@ -125,11 +115,7 @@ const Header: React.FC<HeaderProps> = ({
             <div className="relative">
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  isDark 
-                    ? 'bg-gray-700 text-white hover:bg-gray-600' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className="flex items-center space-x-2 px-3 py-2 text-sm font-medium rounded-md transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
               >
                 <span>👤</span>
                 <span className="hidden sm:inline">{currentUserInfo.name}</span>
@@ -144,23 +130,23 @@ const Header: React.FC<HeaderProps> = ({
               </button>
 
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                <div className="absolute right-0 mt-2 w-[480px] bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
                   <div className="py-1">
-                    <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                    <div className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">
                       Switch User
                     </div>
                     {users.map((user) => (
                       <button
                         key={user.id}
                         onClick={() => handleUserSwitch(user.id)}
-                        className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
+                        className={`w-full text-left px-6 py-4 text-sm hover:bg-gray-100 transition-colors ${
                           user.id === currentUser
                             ? 'bg-blue-50 text-blue-700'
                             : 'text-gray-700'
                         }`}
                       >
-                        <div className="font-medium">{user.name}</div>
-                        <div className="text-xs text-gray-500 mt-1">{user.description}</div>
+                        <div className="font-medium text-base">{user.name}</div>
+                        <div className="text-sm text-gray-500 mt-1 leading-relaxed">{user.description}</div>
                       </button>
                     ))}
                   </div>

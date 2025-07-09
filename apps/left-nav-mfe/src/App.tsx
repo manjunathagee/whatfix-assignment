@@ -14,7 +14,6 @@ function App() {
       <LeftNav
         activeItem={selectedItem}
         onItemClick={handleItemClick}
-        theme="light"
       />
       
       <div className="flex-1 p-8">

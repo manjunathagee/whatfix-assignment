@@ -12,7 +12,6 @@ interface LeftNavProps {
   items?: NavigationItem[]
   activeItem?: string
   onItemClick?: (item: NavigationItem) => void
-  theme?: 'light' | 'dark'
 }
 
 const LeftNav: React.FC<LeftNavProps> = ({
@@ -58,8 +57,7 @@ const LeftNav: React.FC<LeftNavProps> = ({
     }
   ],
   activeItem = 'profile',
-  onItemClick = () => {},
-  theme = 'light'
+  onItemClick = () => {}
 }) => {
   const [selectedItem, setSelectedItem] = useState(activeItem)
 
@@ -68,20 +66,8 @@ const LeftNav: React.FC<LeftNavProps> = ({
     onItemClick(item)
   }
 
-  const baseClasses = theme === 'dark' 
-    ? 'bg-gray-900 text-white' 
-    : 'bg-white text-gray-900'
-
-  const itemClasses = theme === 'dark'
-    ? 'text-gray-300 hover:bg-gray-800 hover:text-white'
-    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
-
-  const activeClasses = theme === 'dark'
-    ? 'bg-gray-800 text-white border-blue-400'
-    : 'bg-blue-50 text-blue-900 border-blue-500'
-
   return (
-    <div className={`w-64 h-full ${baseClasses} border-r border-gray-200 flex flex-col`}>
+    <div className="w-64 h-full bg-white text-gray-900 border-r border-gray-200 flex flex-col">
       <div className="p-4 border-b border-gray-200">
         <h2 className="text-lg font-semibold">Navigation</h2>
       </div>
@@ -94,8 +80,8 @@ const LeftNav: React.FC<LeftNavProps> = ({
                 onClick={() => handleItemClick(item)}
                 className={`w-full flex items-center justify-between px-3 py-2 text-left rounded-lg transition-colors duration-200 border-l-4 ${
                   selectedItem === item.id
-                    ? activeClasses
-                    : `${itemClasses} border-transparent`
+                    ? 'bg-blue-50 text-blue-900 border-blue-500'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border-transparent'
                 }`}
               >
                 <div className="flex items-center space-x-3">

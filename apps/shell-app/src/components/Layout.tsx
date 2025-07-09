@@ -30,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Suspense fallback={<LoadingSpinner />}>
         <RemoteHeader 
           title="Whatfix E-commerce"
@@ -39,17 +39,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           onCartClick={handleCartClick}
           onUserSwitch={handleUserSwitch}
           currentUser={state.currentPersona}
-          theme={state.config?.theme || 'light'}
         />
       </Suspense>
       
       <div className="flex flex-1">
-        <aside className="bg-white shadow-md">
+        <aside className="shadow-md bg-white">
           <Suspense fallback={<LoadingSpinner />}>
             <RemoteLeftNav 
               activeItem="profile"
               onItemClick={handleNavItemClick}
-              theme="light"
             />
           </Suspense>
         </aside>

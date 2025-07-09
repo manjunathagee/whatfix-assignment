@@ -19,7 +19,6 @@ function App() {
         cartCount={cartCount}
         onCategoryClick={handleCategoryClick}
         onCartClick={handleCartClick}
-        theme="light"
       />
       
       <div className="container mx-auto px-4 py-8">
