@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import ModuleLoader from '../components/ModuleLoader'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 const Dashboard: React.FC = () => {
   const location = useLocation()
@@ -26,13 +27,16 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          {module.charAt(0).toUpperCase() + module.slice(1)}
-        </h2>
-        
-        <ModuleLoader module={module} />
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-2xl">
+            {module.charAt(0).toUpperCase() + module.slice(1)}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ModuleLoader module={module} />
+        </CardContent>
+      </Card>
     </div>
   )
 }

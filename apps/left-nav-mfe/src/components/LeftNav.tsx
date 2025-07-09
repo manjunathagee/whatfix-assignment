@@ -1,4 +1,9 @@
 import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { cn } from '@/lib/utils'
 
 interface NavigationItem {
   id: string
@@ -67,45 +72,50 @@ const LeftNav: React.FC<LeftNavProps> = ({
   }
 
   return (
-    <div className="w-64 h-full bg-white text-gray-900 border-r border-gray-200 flex flex-col">
-      <div className="p-4 border-b border-gray-200">
-        <h2 className="text-lg font-semibold">Navigation</h2>
-      </div>
+    <Card className="w-64 h-full rounded-none border-y-0 border-l-0 flex flex-col">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg">Navigation</CardTitle>
+      </CardHeader>
+      <Separator />
       
-      <nav className="flex-1 p-4">
-        <ul className="space-y-2">
+      <CardContent className="flex-1 p-4">
+        <nav className="space-y-2">
           {items.map((item) => (
-            <li key={item.id}>
-              <button
-                onClick={() => handleItemClick(item)}
-                className={`w-full flex items-center justify-between px-3 py-2 text-left rounded-lg transition-colors duration-200 border-l-4 ${
-                  selectedItem === item.id
-                    ? 'bg-blue-50 text-blue-900 border-blue-500'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border-transparent'
-                }`}
-              >
+            <Button
+              key={item.id}
+              variant={selectedItem === item.id ? "default" : "ghost"}
+              onClick={() => handleItemClick(item)}
+              className={cn(
+                "w-full justify-start h-auto p-3 border-l-4 transition-colors",
+                selectedItem === item.id 
+                  ? "border-l-blue-500 bg-blue-50 text-blue-900" 
+                  : "border-l-transparent hover:border-l-gray-300"
+              )}
+            >
+              <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
                   <span className="text-lg">{item.icon}</span>
                   <span className="font-medium">{item.label}</span>
                 </div>
                 
                 {item.badge && (
-                  <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-500 rounded-full">
+                  <Badge variant="destructive" className="h-5 w-5 p-0 flex items-center justify-center text-xs font-bold min-w-[20px]">
                     {item.badge}
-                  </span>
+                  </Badge>
                 )}
-              </button>
-            </li>
+              </div>
+            </Button>
           ))}
-        </ul>
-      </nav>
+        </nav>
+      </CardContent>
       
-      <div className="p-4 border-t border-gray-200">
+      <Separator />
+      <div className="p-4">
         <div className="text-sm text-gray-500">
           Left Nav MFE v1.0
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
 

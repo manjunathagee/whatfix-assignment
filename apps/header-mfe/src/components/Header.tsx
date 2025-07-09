@@ -1,4 +1,20 @@
 import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
+} from '@/components/ui/navigation-menu'
 
 interface HeaderProps {
   title?: string
@@ -18,7 +34,6 @@ const Header: React.FC<HeaderProps> = ({
   currentUser = 'default-user'
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('')
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
 
   const categories = [
     { id: 'clothing', name: 'Clothing', icon: '👕' },
@@ -45,7 +60,6 @@ const Header: React.FC<HeaderProps> = ({
 
   const handleUserSwitch = (userId: string) => {
     onUserSwitch(userId)
-    setIsUserMenuOpen(false)
   }
 
   return (
@@ -62,108 +76,90 @@ const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Category Navigation */}
-          <nav className="hidden md:flex space-x-1">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => handleCategoryClick(category.id)}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeCategory === category.id
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-700 hover:text-gray-900'
-                }`}
-              >
-                <span className="text-lg">{category.icon}</span>
-                <span>{category.name}</span>
-              </button>
-            ))}
-          </nav>
+          <NavigationMenu className="hidden md:flex">
+            <NavigationMenuList>
+              {categories.map((category) => (
+                <NavigationMenuItem key={category.id}>
+                  <Button
+                    variant={activeCategory === category.id ? "default" : "ghost"}
+                    onClick={() => handleCategoryClick(category.id)}
+                    className="flex items-center space-x-2"
+                  >
+                    <span className="text-lg">{category.icon}</span>
+                    <span>{category.name}</span>
+                  </Button>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
 
-          {/* Cart and Actions */}
+          {/* Actions */}
           <div className="flex items-center space-x-4">
-            {/* Search Icon */}
-            <button className="p-2 rounded-md transition-colors text-gray-700 hover:text-gray-900">
+            {/* Search Button */}
+            <Button variant="ghost" size="sm">
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-            </button>
+            </Button>
 
             {/* Cart Button */}
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={onCartClick}
-              className="relative p-2 rounded-md transition-colors text-gray-700 hover:text-gray-900"
+              className="relative"
             >
-              <span className="sr-only">View cart</span>
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m2.6 8l1.5-8h11.5M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6.28" />
               </svg>
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full flex items-center justify-center text-xs font-bold text-white">
+                <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs font-bold min-w-[20px]">
                   {cartCount > 99 ? '99+' : cartCount}
-                </span>
+                </Badge>
               )}
-            </button>
+            </Button>
 
             {/* Notifications */}
-            <button className="p-2 rounded-md transition-colors text-gray-700 hover:text-gray-900">
+            <Button variant="ghost" size="sm">
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
-            </button>
+            </Button>
 
             {/* User Menu */}
-            <div className="relative">
-              <button
-                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center space-x-2 px-3 py-2 text-sm font-medium rounded-md transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
-              >
-                <span>👤</span>
-                <span className="hidden sm:inline">{currentUserInfo.name}</span>
-                <svg
-                  className={`w-4 h-4 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-[480px] bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
-                  <div className="py-1">
-                    <div className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">
-                      Switch User
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center space-x-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback>👤</AvatarFallback>
+                  </Avatar>
+                  <span className="hidden sm:inline">{currentUserInfo.name}</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-[480px]" align="end">
+                <DropdownMenuLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Switch User</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {users.map((user) => (
+                  <DropdownMenuItem
+                    key={user.id}
+                    onClick={() => handleUserSwitch(user.id)}
+                    className={`cursor-pointer p-4 hover:bg-gray-50 ${
+                      user.id === currentUser ? 'bg-blue-50 text-blue-700' : ''
+                    }`}
+                  >
+                    <div className="flex flex-col space-y-1">
+                      <div className="font-medium text-base">{user.name}</div>
+                      <div className="text-sm text-gray-500">{user.description}</div>
                     </div>
-                    {users.map((user) => (
-                      <button
-                        key={user.id}
-                        onClick={() => handleUserSwitch(user.id)}
-                        className={`w-full text-left px-6 py-4 text-sm hover:bg-gray-100 transition-colors ${
-                          user.id === currentUser
-                            ? 'bg-blue-50 text-blue-700'
-                            : 'text-gray-700'
-                        }`}
-                      >
-                        <div className="font-medium text-base">{user.name}</div>
-                        <div className="text-sm text-gray-500 mt-1 leading-relaxed">{user.description}</div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Overlay to close dropdown when clicking outside */}
-              {isUserMenuOpen && (
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setIsUserMenuOpen(false)}
-                />
-              )}
-            </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
-
       </div>
     </header>
   )
