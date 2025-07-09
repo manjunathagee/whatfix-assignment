@@ -26,7 +26,7 @@ export default defineConfig({
       shared: ["react", "react-dom"],
     }),
   ],
-  base: isProduction ? "/cart-mfe/" : "/cart-mfe/",
+  base: isProduction ? "/" : "/cart-mfe/",
   server: {
     port: 3003,
     cors: true, // Enable CORS for development
