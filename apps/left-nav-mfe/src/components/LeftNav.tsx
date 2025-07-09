@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { User, ShoppingCart, Package } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,7 +10,7 @@ import { useNavigation } from '@/hooks/useGlobalState'
 interface NavigationItem {
   id: string
   label: string
-  icon: string
+  icon: React.ComponentType<any>
   url: string
   badge?: number
 }
@@ -33,41 +34,22 @@ const LeftNav: React.FC<LeftNavProps> = ({
     {
       id: 'profile',
       label: 'Profile',
-      icon: '👤',
+      icon: User,
       url: '/profile'
     },
     {
       id: 'cart',
       label: 'Cart',
-      icon: '🛒',
+      icon: ShoppingCart,
       url: '/cart',
       badge: cartCount > 0 ? cartCount : undefined
     },
     {
       id: 'orders',
       label: 'Orders',
-      icon: '📦',
+      icon: Package,
       url: '/orders',
       badge: ordersCount > 0 ? ordersCount : undefined
-    },
-    {
-      id: 'wishlist',
-      label: 'Wishlist',
-      icon: '❤️',
-      url: '/wishlist',
-      badge: 5
-    },
-    {
-      id: 'settings',
-      label: 'Settings',
-      icon: '⚙️',
-      url: '/settings'
-    },
-    {
-      id: 'help',
-      label: 'Help',
-      icon: '❓',
-      url: '/help'
     }
   ]
 
@@ -80,7 +62,7 @@ const LeftNav: React.FC<LeftNavProps> = ({
   }
 
   return (
-    <Card className="w-64 h-full rounded-none border-y-0 border-l-0 flex flex-col">
+    <Card className="w-64 h-full rounded-none border-r border-y-0 border-l-0 flex flex-col">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg">Navigation</CardTitle>
       </CardHeader>
@@ -94,15 +76,15 @@ const LeftNav: React.FC<LeftNavProps> = ({
               variant={selectedItem === item.id ? "default" : "ghost"}
               onClick={() => handleItemClick(item)}
               className={cn(
-                "w-full justify-start h-auto p-3 border-l-4 transition-colors",
+                "w-full justify-start h-auto p-3 transition-colors",
                 selectedItem === item.id 
-                  ? "border-l-blue-500 bg-blue-50 text-blue-900" 
-                  : "border-l-transparent hover:border-l-gray-300"
+                  ? "bg-blue-50 text-blue-900" 
+                  : "hover:bg-gray-50"
               )}
             >
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
-                  <span className="text-lg">{item.icon}</span>
+                  <item.icon className="w-6 h-6" />
                   <span className="font-medium">{item.label}</span>
                 </div>
                 

@@ -6,6 +6,7 @@ import Orders from './pages/Orders'
 import Profile from './pages/Profile'
 import Checkout from './pages/Checkout'
 import Payment from './pages/Payment'
+import CategoryPage from './pages/CategoryPage'
 import ErrorBoundary from './components/ErrorBoundary'
 import { ConfigurationProvider } from './contexts/ConfigurationContext'
 
@@ -22,6 +23,7 @@ function App() {
               <Route path="/orders" element={<Orders />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/category/:category" element={<CategoryPage />} />
             </Routes>
           </Layout>
         </Router>

@@ -8,17 +8,11 @@ function App() {
     console.log('Category clicked:', category)
   }
 
-  const handleCartClick = () => {
-    console.log('Cart clicked')
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Header
         title="Header MFE Demo"
-        cartCount={cartCount}
         onCategoryClick={handleCategoryClick}
-        onCartClick={handleCartClick}
       />
       
       <div className="container mx-auto px-4 py-8">
