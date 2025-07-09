@@ -10,19 +10,24 @@ const isProduction = process.env.NODE_ENV === "production";
 // Base URLs for different environments
 const getBaseUrl = (port: number, path: string) => {
   if (isProduction) {
-    // Production URLs - replace with your actual production domains
+    // Production URLs - using environment variables
     const productionUrls: Record<number, string> = {
-      3001: process.env.HEADER_MFE_URL || "https://header-mfe.yourdomain.com",
-      3002:
-        process.env.LEFT_NAV_MFE_URL || "https://left-nav-mfe.yourdomain.com",
-      3003: process.env.CART_MFE_URL || "https://cart-mfe.yourdomain.com",
-      3004: process.env.ORDERS_MFE_URL || "https://orders-mfe.yourdomain.com",
-      3005: process.env.PROFILE_MFE_URL || "https://profile-mfe.yourdomain.com",
-      3006:
-        process.env.CHECKOUT_MFE_URL || "https://checkout-mfe.yourdomain.com",
-      3007: process.env.PAYMENT_MFE_URL || "https://payment-mfe.yourdomain.com",
+      3001: process.env.HEADER_MFE_URL || "",
+      3002: process.env.LEFT_NAV_MFE_URL || "",
+      3003: process.env.CART_MFE_URL || "",
+      3004: process.env.ORDERS_MFE_URL || "",
+      3005: process.env.PROFILE_MFE_URL || "",
+      3006: process.env.CHECKOUT_MFE_URL || "",
+      3007: process.env.PAYMENT_MFE_URL || "",
     };
-    return `${productionUrls[port]}/assets/remoteEntry.js`;
+
+    const url = productionUrls[port];
+    if (!url) {
+      console.warn(`No environment variable set for port ${port}`);
+      return "";
+    }
+
+    return `${url}/assets/remoteEntry.js`;
   }
   // Development URLs
   return `http://localhost:${port}${path}/assets/remoteEntry.js`;
