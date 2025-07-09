@@ -1,17 +1,8 @@
-import React, { Suspense } from 'react'
-import LoadingSpinner from '../components/LoadingSpinner'
-import ErrorBoundary from '../components/ErrorBoundary'
-
-const RemoteProfile = React.lazy(() => import('profileMfe/Profile'))
+import React from "react";
+import UserProfile from "../components/UserProfile";
 
 const Profile: React.FC = () => {
-  return (
-    <ErrorBoundary>
-      <Suspense fallback={<LoadingSpinner />}>
-        <RemoteProfile />
-      </Suspense>
-    </ErrorBoundary>
-  )
-}
+  return <UserProfile />;
+};
 
-export default Profile
+export default Profile;

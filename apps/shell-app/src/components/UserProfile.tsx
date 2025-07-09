@@ -1,113 +1,121 @@
-import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  CreditCard, 
-  Shield, 
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  User,
+  Mail,
+  Phone,
+  MapPin,
+  CreditCard,
+  Shield,
   Bell,
   Edit3,
   Camera,
   Star,
   Heart,
-  Settings
-} from 'lucide-react'
+  Settings,
+} from "lucide-react";
 
 export interface UserProfile {
-  id: string
-  name: string
-  email: string
-  phone: string
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
   address: {
-    street: string
-    city: string
-    state: string
-    zipCode: string
-    country: string
-  }
-  avatar: string
-  joinDate: string
-  membershipLevel: 'basic' | 'premium' | 'gold'
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
+  avatar: string;
+  joinDate: string;
+  membershipLevel: "basic" | "premium" | "gold";
   preferences: {
-    notifications: boolean
-    newsletter: boolean
-    sms: boolean
-  }
+    notifications: boolean;
+    newsletter: boolean;
+    sms: boolean;
+  };
   stats: {
-    totalOrders: number
-    totalSpent: number
-    favoriteItems: number
-    reviewsWritten: number
-  }
+    totalOrders: number;
+    totalSpent: number;
+    favoriteItems: number;
+    reviewsWritten: number;
+  };
 }
 
-const Profile: React.FC = () => {
+const UserProfile: React.FC = () => {
   const [profile] = useState<UserProfile>({
-    id: '1',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567',
+    id: "1",
+    name: "John Doe",
+    email: "john.doe@example.com",
+    phone: "+1 (555) 123-4567",
     address: {
-      street: '123 Main Street',
-      city: 'San Francisco',
-      state: 'CA',
-      zipCode: '94105',
-      country: 'United States'
+      street: "123 Main Street",
+      city: "San Francisco",
+      state: "CA",
+      zipCode: "94105",
+      country: "United States",
     },
-    avatar: '',
-    joinDate: '2023-01-15',
-    membershipLevel: 'premium',
+    avatar: "",
+    joinDate: "2023-01-15",
+    membershipLevel: "premium",
     preferences: {
       notifications: true,
       newsletter: true,
-      sms: false
+      sms: false,
     },
     stats: {
       totalOrders: 24,
       totalSpent: 2847.96,
       favoriteItems: 12,
-      reviewsWritten: 8
-    }
-  })
+      reviewsWritten: 8,
+    },
+  });
 
-  const getMembershipColor = (level: UserProfile['membershipLevel']) => {
+  const getMembershipColor = (level: UserProfile["membershipLevel"]) => {
     switch (level) {
-      case 'gold':
-        return 'bg-yellow-100 text-yellow-800'
-      case 'premium':
-        return 'bg-purple-100 text-purple-800'
-      case 'basic':
-        return 'bg-gray-100 text-gray-800'
+      case "gold":
+        return "bg-yellow-100 text-yellow-800";
+      case "premium":
+        return "bg-purple-100 text-purple-800";
+      case "basic":
+        return "bg-gray-100 text-gray-800";
       default:
-        return 'bg-gray-100 text-gray-800'
+        return "bg-gray-100 text-gray-800";
     }
-  }
+  };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
-  }
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   const handleEditProfile = () => {
-    alert('Edit profile functionality will be implemented in future sprints!')
-  }
+    alert("Edit profile functionality will be implemented in future sprints!");
+  };
 
   const handleChangeAvatar = () => {
-    alert('Change avatar functionality will be implemented in future sprints!')
-  }
+    alert("Change avatar functionality will be implemented in future sprints!");
+  };
 
   const handleUpdatePreferences = () => {
-    alert('Update preferences functionality will be implemented in future sprints!')
-  }
+    alert(
+      "Update preferences functionality will be implemented in future sprints!"
+    );
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -115,7 +123,9 @@ const Profile: React.FC = () => {
         <User className="size-8 text-primary" />
         <h1 className="text-3xl font-bold">My Profile</h1>
         <Badge className={getMembershipColor(profile.membershipLevel)}>
-          {profile.membershipLevel.charAt(0).toUpperCase() + profile.membershipLevel.slice(1)} Member
+          {profile.membershipLevel.charAt(0).toUpperCase() +
+            profile.membershipLevel.slice(1)}{" "}
+          Member
         </Badge>
       </div>
 
@@ -127,9 +137,7 @@ const Profile: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle>Profile Information</CardTitle>
-                  <CardDescription>
-                    Manage your account details
-                  </CardDescription>
+                  <CardDescription>Manage your account details</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={handleEditProfile}>
                   <Edit3 className="size-4 mr-2" />
@@ -145,12 +153,15 @@ const Profile: React.FC = () => {
                     <Avatar className="size-20">
                       <AvatarImage src={profile.avatar} alt={profile.name} />
                       <AvatarFallback className="text-xl">
-                        {profile.name.split(' ').map(n => n[0]).join('')}
+                        {profile.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
                       </AvatarFallback>
                     </Avatar>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
+                    <Button
+                      size="sm"
+                      variant="outline"
                       className="absolute -bottom-2 -right-2 size-8 rounded-full p-0"
                       onClick={handleChangeAvatar}
                     >
@@ -173,14 +184,18 @@ const Profile: React.FC = () => {
                     <Mail className="size-5 text-muted-foreground" />
                     <div>
                       <p className="text-sm font-medium">Email</p>
-                      <p className="text-sm text-muted-foreground">{profile.email}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {profile.email}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="size-5 text-muted-foreground" />
                     <div>
                       <p className="text-sm font-medium">Phone</p>
-                      <p className="text-sm text-muted-foreground">{profile.phone}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {profile.phone}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -193,8 +208,11 @@ const Profile: React.FC = () => {
                   <div>
                     <p className="text-sm font-medium">Address</p>
                     <p className="text-sm text-muted-foreground">
-                      {profile.address.street}<br />
-                      {profile.address.city}, {profile.address.state} {profile.address.zipCode}<br />
+                      {profile.address.street}
+                      <br />
+                      {profile.address.city}, {profile.address.state}{" "}
+                      {profile.address.zipCode}
+                      <br />
                       {profile.address.country}
                     </p>
                   </div>
@@ -213,7 +231,11 @@ const Profile: React.FC = () => {
                     Manage your notification settings
                   </CardDescription>
                 </div>
-                <Button variant="outline" size="sm" onClick={handleUpdatePreferences}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleUpdatePreferences}
+                >
                   <Settings className="size-4 mr-2" />
                   Update
                 </Button>
@@ -231,8 +253,14 @@ const Profile: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                  <Badge variant={profile.preferences.notifications ? "default" : "secondary"}>
-                    {profile.preferences.notifications ? 'Enabled' : 'Disabled'}
+                  <Badge
+                    variant={
+                      profile.preferences.notifications
+                        ? "default"
+                        : "secondary"
+                    }
+                  >
+                    {profile.preferences.notifications ? "Enabled" : "Disabled"}
                   </Badge>
                 </div>
                 <Separator />
@@ -246,8 +274,14 @@ const Profile: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                  <Badge variant={profile.preferences.newsletter ? "default" : "secondary"}>
-                    {profile.preferences.newsletter ? 'Subscribed' : 'Unsubscribed'}
+                  <Badge
+                    variant={
+                      profile.preferences.newsletter ? "default" : "secondary"
+                    }
+                  >
+                    {profile.preferences.newsletter
+                      ? "Subscribed"
+                      : "Unsubscribed"}
                   </Badge>
                 </div>
                 <Separator />
@@ -261,8 +295,10 @@ const Profile: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                  <Badge variant={profile.preferences.sms ? "default" : "secondary"}>
-                    {profile.preferences.sms ? 'Enabled' : 'Disabled'}
+                  <Badge
+                    variant={profile.preferences.sms ? "default" : "secondary"}
+                  >
+                    {profile.preferences.sms ? "Enabled" : "Disabled"}
                   </Badge>
                 </div>
               </div>
@@ -275,9 +311,7 @@ const Profile: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle>Account Stats</CardTitle>
-              <CardDescription>
-                Your activity summary
-              </CardDescription>
+              <CardDescription>Your activity summary</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -290,7 +324,9 @@ const Profile: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold">{profile.stats.totalOrders}</p>
+                    <p className="text-2xl font-bold">
+                      {profile.stats.totalOrders}
+                    </p>
                   </div>
                 </div>
                 <Separator />
@@ -303,7 +339,9 @@ const Profile: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold">${profile.stats.totalSpent.toFixed(2)}</p>
+                    <p className="text-2xl font-bold">
+                      ${profile.stats.totalSpent.toFixed(2)}
+                    </p>
                   </div>
                 </div>
                 <Separator />
@@ -312,11 +350,15 @@ const Profile: React.FC = () => {
                     <Heart className="size-5 text-red-600" />
                     <div>
                       <p className="text-sm font-medium">Favorite Items</p>
-                      <p className="text-sm text-muted-foreground">Saved for later</p>
+                      <p className="text-sm text-muted-foreground">
+                        Saved for later
+                      </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold">{profile.stats.favoriteItems}</p>
+                    <p className="text-2xl font-bold">
+                      {profile.stats.favoriteItems}
+                    </p>
                   </div>
                 </div>
                 <Separator />
@@ -325,11 +367,15 @@ const Profile: React.FC = () => {
                     <Star className="size-5 text-yellow-600" />
                     <div>
                       <p className="text-sm font-medium">Reviews Written</p>
-                      <p className="text-sm text-muted-foreground">Product reviews</p>
+                      <p className="text-sm text-muted-foreground">
+                        Product reviews
+                      </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold">{profile.stats.reviewsWritten}</p>
+                    <p className="text-2xl font-bold">
+                      {profile.stats.reviewsWritten}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -340,9 +386,7 @@ const Profile: React.FC = () => {
           <Card className="mt-6">
             <CardHeader>
               <CardTitle>Membership</CardTitle>
-              <CardDescription>
-                Your current membership status
-              </CardDescription>
+              <CardDescription>Your current membership status</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center space-y-3">
@@ -362,7 +406,7 @@ const Profile: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default UserProfile;

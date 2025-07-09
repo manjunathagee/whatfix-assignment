@@ -19,7 +19,13 @@
       "Bash(mkdir:*)",
       "Bash(cp:*)",
       "Bash(find:*)",
-      "Bash(timeout 30 pnpm dev:preview)"
+      "Bash(timeout 30 pnpm dev:preview)",
+      "Bash(ls:*)",
+      "Bash(npm run build:*)",
+      "Bash(curl:*)",
+      "Bash(pnpm kill-ports:*)",
+      "Bash(gtimeout:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

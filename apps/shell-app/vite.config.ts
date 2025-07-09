@@ -16,7 +16,6 @@ const getBaseUrl = (port: number, path: string) => {
       3002: process.env.LEFT_NAV_MFE_URL || "",
       3003: process.env.CART_MFE_URL || "",
       3004: process.env.ORDERS_MFE_URL || "",
-      3005: process.env.PROFILE_MFE_URL || "",
       3006: process.env.CHECKOUT_MFE_URL || "",
       3007: process.env.PAYMENT_MFE_URL || "",
     };
@@ -29,8 +28,8 @@ const getBaseUrl = (port: number, path: string) => {
 
     return `${url}/assets/remoteEntry.js`;
   }
-  // Development URLs
-  return `http://localhost:${port}${path}/assets/remoteEntry.js`;
+  // Development URLs - check if we're in preview mode (port-based serving)
+  return `http://localhost:${port}/assets/remoteEntry.js`;
 };
 
 // https://vite.dev/config/
@@ -50,7 +49,6 @@ export default defineConfig({
         leftNavMfe: getBaseUrl(3002, "/left-nav-mfe"),
         cartMfe: getBaseUrl(3003, "/cart-mfe"),
         ordersMfe: getBaseUrl(3004, "/orders-mfe"),
-        profileMfe: getBaseUrl(3005, "/profile-mfe"),
         checkoutMfe: getBaseUrl(3006, "/checkout-mfe"),
         paymentMfe: getBaseUrl(3007, "/payment-mfe"),
       },
