@@ -6,6 +6,9 @@ export interface ModuleConfig {
   enabled: boolean;
   order: number;
   permissions?: string[];
+  icon?: string;
+  description?: string;
+  category?: string;
 }
 
 export interface DashboardConfig {
@@ -15,16 +18,59 @@ export interface DashboardConfig {
   theme: 'light' | 'dark';
   layout: 'default' | 'compact';
   lastUpdated: string;
+  features?: {
+    analytics: boolean;
+    personalization: boolean;
+    notifications: boolean;
+  };
 }
 
 export interface UserPreferences {
   theme: 'light' | 'dark';
   compactMode: boolean;
   moduleOrder: string[];
+  favoriteModules?: string[];
 }
 
 export interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
   errorInfo?: React.ErrorInfo;
+}
+
+// Configuration API Types
+export interface ConfigurationResponse {
+  success: boolean;
+  data?: DashboardConfig;
+  error?: string;
+  timestamp: string;
+  version: string;
+}
+
+export interface ConfigurationCache {
+  config: DashboardConfig;
+  timestamp: string;
+  version: string;
+  ttl: number;
+}
+
+export interface UserPersona {
+  id: string;
+  name: string;
+  description: string;
+  configurationId: string;
+}
+
+// API Configuration Types
+export interface ApiEndpoints {
+  config: string;
+  userConfig: (userId: string) => string;
+  validateConfig: string;
+}
+
+export interface ConfigurationServiceOptions {
+  baseUrl?: string;
+  cacheTTL?: number;
+  retryAttempts?: number;
+  enableValidation?: boolean;
 }

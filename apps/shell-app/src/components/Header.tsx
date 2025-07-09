@@ -1,6 +1,10 @@
 import React from 'react'
+import PersonaSwitcher from './PersonaSwitcher'
+import { useConfiguration } from '../contexts/ConfigurationContext'
 
 const Header: React.FC = () => {
+  const { state } = useConfiguration()
+
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -9,6 +13,11 @@ const Header: React.FC = () => {
             <h1 className="text-xl font-semibold text-gray-900">
               E-Commerce Dashboard
             </h1>
+            {state.config && (
+              <span className="ml-4 px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded">
+                v{state.config.version}
+              </span>
+            )}
           </div>
           
           <nav className="hidden md:flex space-x-8">
@@ -33,6 +42,8 @@ const Header: React.FC = () => {
                 0
               </span>
             </button>
+            
+            <PersonaSwitcher />
           </div>
         </div>
       </div>

@@ -19,6 +19,7 @@ Establish the monorepo structure, basic shell application, and development envir
 ### ✅ Sprint 1 Summary - COMPLETED
 
 **Completed Tasks:**
+
 - ✅ Monorepo structure established with pnpm workspace
 - ✅ Shell application created with Vite + React + TypeScript
 - ✅ Module Federation configured for micro-frontend architecture
@@ -31,12 +32,14 @@ Establish the monorepo structure, basic shell application, and development envir
 - ✅ Loading states and fallback components added
 
 **Demo Available:**
+
 - Shell application runs successfully on localhost:3000
 - Basic layout structure with header, left navigation, and main content areas
 - Module Federation setup ready for future micro-frontends
 - Error handling and loading states working
 
 **Files Created:**
+
 - `/package.json` - Root package configuration
 - `/pnpm-workspace.yaml` - Workspace configuration
 - `/apps/shell-app/` - Shell application with complete structure
@@ -99,11 +102,10 @@ Create a mock API system and implement dynamic configuration loading in the shel
 
 **Day 3:**
 
-- [ ] **API-001**: Set up JSON Server with dummy configuration data
+- [ ] **API-001**: Just read the configuration from json file directly
 - [ ] **API-002**: Create configuration schema and TypeScript interfaces
 - [ ] **API-003**: Implement configuration API endpoints (/api/config, /api/config/:userId)
 - [ ] **API-004**: Add sample configurations for different user personas
-- [ ] **API-005**: Just read the configuration from json file directly
 
 **Day 4:**
 
@@ -115,7 +117,6 @@ Create a mock API system and implement dynamic configuration loading in the shel
 
 ### Definition of Done
 
-- [ ] Mock API serves configuration data successfully
 - [ ] Shell application loads configuration from API
 - [ ] Configuration is cached and versioned properly
 - [ ] Error handling works for API failures
