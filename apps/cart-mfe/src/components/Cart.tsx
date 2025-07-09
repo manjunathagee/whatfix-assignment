@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react'
+import { useCart, useGlobalActions } from '@/hooks/useGlobalState'
 
 export interface CartItem {
   id: string
@@ -15,67 +16,93 @@ export interface CartItem {
 }
 
 const Cart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: '1',
-      name: 'iPhone 15 Pro',
-      price: 999.99,
-      quantity: 1,
-      image: '📱',
-      category: 'Electronics'
-    },
-    {
-      id: '2',
-      name: 'Nike Air Max 90',
-      price: 120.00,
-      quantity: 2,
-      image: '👟',
-      category: 'Clothing'
-    },
-    {
-      id: '3',
-      name: 'MacBook Pro 14"',
-      price: 1999.99,
-      quantity: 1,
-      image: '💻',
-      category: 'Electronics'
-    },
-    {
-      id: '4',
-      name: 'Cotton T-Shirt',
-      price: 29.99,
-      quantity: 3,
-      image: '👕',
-      category: 'Clothing'
+  const { items: cartItems, count: cartCount, total: cartTotal, updateCartItem, removeFromCart, clearCart } = useCart()
+  const { createOrder, navigateTo } = useGlobalActions()
+
+  // Initialize cart with some dummy items if empty
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      const dummyItems: CartItem[] = [
+        {
+          id: '1',
+          name: 'iPhone 15 Pro',
+          price: 999.99,
+          quantity: 1,
+          image: '📱',
+          category: 'Electronics'
+        },
+        {
+          id: '2',
+          name: 'Nike Air Max 90',
+          price: 120.00,
+          quantity: 2,
+          image: '👟',
+          category: 'Clothing'
+        },
+        {
+          id: '3',
+          name: 'MacBook Pro 14"',
+          price: 1999.99,
+          quantity: 1,
+          image: '💻',
+          category: 'Electronics'
+        },
+        {
+          id: '4',
+          name: 'Cotton T-Shirt',
+          price: 29.99,
+          quantity: 3,
+          image: '👕',
+          category: 'Clothing'
+        }
+      ]
+
+      // Add dummy items to global state
+      const eventBus = (window as any).eventBus;
+      if (eventBus) {
+        dummyItems.forEach(item => {
+          eventBus.emit('cart:add', { item });
+        });
+      }
     }
-  ])
+  }, [])
 
   const updateQuantity = (id: string, newQuantity: number) => {
     if (newQuantity <= 0) {
       removeItem(id)
       return
     }
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    )
+    updateCartItem(id, newQuantity)
   }
 
   const removeItem = (id: string) => {
-    setCartItems(items => items.filter(item => item.id !== id))
+    removeFromCart(id)
   }
 
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+    return cartTotal
   }
 
   const getTotalItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0)
+    return cartCount
   }
 
   const handleCheckout = () => {
-    alert('Checkout functionality will be implemented in Sprint 6!')
+    // Create order from cart items
+    const order = {
+      id: `order-${Date.now()}`,
+      userId: 'current-user',
+      items: cartItems,
+      total: cartTotal * 1.08, // Including tax
+      status: 'pending',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+    
+    createOrder(order)
+    clearCart()
+    alert('Order created successfully! You will be redirected to orders page.')
+    navigateTo('/orders', 'orders')
   }
 
   return (

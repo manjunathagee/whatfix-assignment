@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(bash:*)",
+      "Bash(npx:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "Bash(pnpm build:*)",
+      "Bash(timeout 10s pnpm dev)",
+      "Bash(pnpm run dev:preview:*)",
+      "Bash(pnpm -w run dev:preview)",
+      "Bash(pnpm --filter shell-app build)"
+    ],
+    "deny": []
+  }
+}

@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
+import { useNavigation } from '@/hooks/useGlobalState'
 
 interface NavigationItem {
   id: string
@@ -20,7 +21,15 @@ interface LeftNavProps {
 }
 
 const LeftNav: React.FC<LeftNavProps> = ({
-  items = [
+  items,
+  activeItem = 'profile',
+  onItemClick = () => {}
+}) => {
+  const { cartCount, ordersCount, navigateTo } = useNavigation()
+  const [selectedItem, setSelectedItem] = useState(activeItem)
+
+  // Use dynamic navigation items with real state
+  const defaultItems: NavigationItem[] = [
     {
       id: 'profile',
       label: 'Profile',
@@ -32,14 +41,14 @@ const LeftNav: React.FC<LeftNavProps> = ({
       label: 'Cart',
       icon: '🛒',
       url: '/cart',
-      badge: 3
+      badge: cartCount > 0 ? cartCount : undefined
     },
     {
       id: 'orders',
       label: 'Orders',
       icon: '📦',
       url: '/orders',
-      badge: 2
+      badge: ordersCount > 0 ? ordersCount : undefined
     },
     {
       id: 'wishlist',
@@ -60,15 +69,14 @@ const LeftNav: React.FC<LeftNavProps> = ({
       icon: '❓',
       url: '/help'
     }
-  ],
-  activeItem = 'profile',
-  onItemClick = () => {}
-}) => {
-  const [selectedItem, setSelectedItem] = useState(activeItem)
+  ]
+
+  const navigationItems = items || defaultItems
 
   const handleItemClick = (item: NavigationItem) => {
     setSelectedItem(item.id)
     onItemClick(item)
+    navigateTo(item.url, item.id)
   }
 
   return (
@@ -80,7 +88,7 @@ const LeftNav: React.FC<LeftNavProps> = ({
       
       <CardContent className="flex-1 p-4">
         <nav className="space-y-2">
-          {items.map((item) => (
+          {navigationItems.map((item) => (
             <Button
               key={item.id}
               variant={selectedItem === item.id ? "default" : "ghost"}
