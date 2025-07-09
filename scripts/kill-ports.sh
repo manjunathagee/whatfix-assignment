@@ -20,8 +20,8 @@ get_app_name() {
         3003) echo "Cart MFE" ;;
         3004) echo "Orders MFE" ;;
         3005) echo "Profile MFE" ;;
-        3006) echo "Checkout MFE (Future)" ;;
-        3007) echo "Payment MFE (Future)" ;;
+        3006) echo "Checkout MFE" ;;
+        3007) echo "Payment MFE" ;;
         *) echo "Unknown App" ;;
     esac
 }
@@ -40,14 +40,37 @@ kill_port() {
         local process_info=$(ps -p $pid -o comm= 2>/dev/null)
         echo -e "${YELLOW}   Process: $process_info${NC}"
         
-        # Kill the process
-        kill -9 $pid 2>/dev/null
+        # Try multiple kill strategies
+        echo -e "${YELLOW}   Attempting to kill process...${NC}"
         
-        # Verify the process is killed
+        # First try graceful kill
+        kill $pid 2>/dev/null
+        sleep 1
+        
+        # Check if still running, then force kill
+        if kill -0 $pid 2>/dev/null; then
+            echo -e "${YELLOW}   Process still running, forcing kill...${NC}"
+            kill -9 $pid 2>/dev/null
+            sleep 1
+        fi
+        
+        # Final check
         if ! kill -0 $pid 2>/dev/null; then
             echo -e "${GREEN}✅ Successfully killed process on port $port${NC}"
         else
             echo -e "${RED}❌ Failed to kill process on port $port${NC}"
+            echo -e "${YELLOW}   Trying alternative kill methods...${NC}"
+            
+            # Try killing by port directly
+            lsof -ti:$port | xargs kill -9 2>/dev/null
+            sleep 1
+            
+            # Final verification
+            if [ -z "$(lsof -ti:$port 2>/dev/null)" ]; then
+                echo -e "${GREEN}✅ Successfully killed process on port $port (alternative method)${NC}"
+            else
+                echo -e "${RED}❌ Still failed to kill process on port $port${NC}"
+            fi
         fi
     else
         echo -e "${GREEN}✅ Port $port ($app_name) is available${NC}"
@@ -57,6 +80,25 @@ kill_port() {
 # Kill processes on all required ports
 for port in "${PORTS[@]}"; do
     kill_port $port
+done
+
+# Additional cleanup for any remaining vite or node processes
+echo -e "${YELLOW}🔍 Performing additional cleanup...${NC}"
+
+# Kill any remaining vite processes
+pkill -f "vite" 2>/dev/null && echo -e "${GREEN}✅ Killed remaining vite processes${NC}" || echo -e "${YELLOW}⚠️  No vite processes found${NC}"
+
+# Kill any remaining pnpm dev processes
+pkill -f "pnpm.*dev" 2>/dev/null && echo -e "${GREEN}✅ Killed remaining pnpm dev processes${NC}" || echo -e "${YELLOW}⚠️  No pnpm dev processes found${NC}"
+
+# Final verification
+echo -e "${YELLOW}🔍 Final port verification...${NC}"
+for port in "${PORTS[@]}"; do
+    if [ -z "$(lsof -ti:$port 2>/dev/null)" ]; then
+        echo -e "${GREEN}✅ Port $port is free${NC}"
+    else
+        echo -e "${RED}❌ Port $port is still occupied${NC}"
+    fi
 done
 
 echo -e "${GREEN}🎉 Port cleanup completed!${NC}"
