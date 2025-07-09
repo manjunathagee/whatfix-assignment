@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 import { useConfiguration } from "../contexts/ConfigurationContext";
 import { useEventBus } from "../services/eventBus";
+import LeftNav from "./LeftNav";
 
 const RemoteHeader = React.lazy(() => import("headerMfe/Header"));
-const RemoteLeftNav = React.lazy(() => import("leftNavMfe/LeftNav"));
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -13,7 +13,6 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { state, changePersona } = useConfiguration();
 
   // Listen for navigation events from Header MFE
@@ -30,11 +29,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const handleCartClick = () => {
     console.log("Cart clicked");
     navigate("/cart");
-  };
-
-  const handleNavItemClick = (item: { url: string }) => {
-    console.log("Navigation item clicked:", item);
-    navigate(item.url);
   };
 
   const handleUserSwitch = (userId: string) => {
@@ -59,12 +53,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       <div className="flex flex-1">
         <aside className="shadow-md bg-white">
-          <Suspense fallback={<LoadingSpinner />}>
-            <RemoteLeftNav
-              activeItem={location.pathname}
-              onItemClick={handleNavItemClick}
-            />
-          </Suspense>
+          <LeftNav />
         </aside>
 
         <main className="flex-1 p-6 bg-gray-50">
