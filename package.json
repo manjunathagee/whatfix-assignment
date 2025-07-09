@@ -11,8 +11,10 @@
   },
   "packageManager": "pnpm@8.15.0",
   "scripts": {
-    "dev": "pnpm --filter shell-app dev",
-    "build": "pnpm --filter shell-app build",
+    "dev": "pnpm build:mfes && pnpm copy:assets && pnpm --filter shell-app dev",
+    "build": "pnpm build:mfes && pnpm copy:assets && pnpm --filter shell-app build",
+    "build:mfes": "pnpm --filter header-mfe build && pnpm --filter left-nav-mfe build",
+    "copy:assets": "mkdir -p apps/shell-app/public/header-mfe && cp -r apps/header-mfe/dist/* apps/shell-app/public/header-mfe/ && mkdir -p apps/shell-app/public/left-nav-mfe && cp -r apps/left-nav-mfe/dist/* apps/shell-app/public/left-nav-mfe/",
     "preview": "pnpm --filter shell-app preview",
     "type-check": "pnpm --filter '*' run type-check",
     "lint": "pnpm --filter '*' run lint",
