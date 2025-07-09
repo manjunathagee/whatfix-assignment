@@ -61,7 +61,11 @@ const CategoryPage: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {products.map((product) => (
-          <Card key={product.id} className="hover:shadow-lg transition-shadow">
+          <Card
+            key={product.id}
+            className="hover:shadow-lg transition-shadow"
+            noPadding
+          >
             <CardHeader className="p-0">
               <div className="relative">
                 <img
