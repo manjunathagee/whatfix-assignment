@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import LoadingSpinner from './LoadingSpinner'
 import { useConfiguration } from '../contexts/ConfigurationContext'
 
@@ -10,18 +11,23 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const navigate = useNavigate()
+  const location = useLocation()
   const { state, changePersona } = useConfiguration()
 
   const handleCategoryClick = (category: string) => {
     console.log('Category clicked:', category)
+    navigate('/')
   }
 
   const handleCartClick = () => {
     console.log('Cart clicked')
+    navigate('/cart')
   }
 
   const handleNavItemClick = (item: any) => {
     console.log('Navigation item clicked:', item)
+    navigate(item.url)
   }
 
   const handleUserSwitch = (userId: string) => {
@@ -46,7 +52,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <aside className="shadow-md bg-white">
           <Suspense fallback={<LoadingSpinner />}>
             <RemoteLeftNav 
-              activeItem="profile"
+              activeItem={location.pathname}
               onItemClick={handleNavItemClick}
             />
           </Suspense>

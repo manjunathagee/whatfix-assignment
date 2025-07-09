@@ -12,6 +12,97 @@ importers:
         specifier: ^9.2.0
         version: 9.2.0
 
+  apps/cart-mfe:
+    dependencies:
+      '@originjs/vite-plugin-federation':
+        specifier: ^1.4.1
+        version: 1.4.1
+      '@radix-ui/react-avatar':
+        specifier: ^1.1.10
+        version: 1.1.10(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-dropdown-menu':
+        specifier: ^2.1.15
+        version: 2.1.15(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-navigation-menu':
+        specifier: ^1.2.13
+        version: 1.2.13(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-select':
+        specifier: ^2.2.5
+        version: 2.2.5(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-separator':
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-slot':
+        specifier: ^1.2.3
+        version: 1.2.3(@types/react@19.1.8)(react@19.1.0)
+      '@tailwindcss/postcss':
+        specifier: ^4.1.11
+        version: 4.1.11
+      '@tailwindcss/vite':
+        specifier: ^4.1.11
+        version: 4.1.11(vite@7.0.3)
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.6)
+      class-variance-authority:
+        specifier: ^0.7.1
+        version: 0.7.1
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      lucide-react:
+        specifier: ^0.525.0
+        version: 0.525.0(react@19.1.0)
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
+      tailwind-merge:
+        specifier: ^3.3.1
+        version: 3.3.1
+      tailwindcss:
+        specifier: ^4.1.11
+        version: 4.1.11
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.30.1
+        version: 9.30.1
+      '@types/react':
+        specifier: ^19.1.8
+        version: 19.1.8
+      '@types/react-dom':
+        specifier: ^19.1.6
+        version: 19.1.6(@types/react@19.1.8)
+      '@vitejs/plugin-react':
+        specifier: ^4.6.0
+        version: 4.6.0(vite@7.0.3)
+      eslint:
+        specifier: ^9.30.1
+        version: 9.30.1
+      eslint-plugin-react-hooks:
+        specifier: ^5.2.0
+        version: 5.2.0(eslint@9.30.1)
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.20
+        version: 0.4.20(eslint@9.30.1)
+      globals:
+        specifier: ^16.3.0
+        version: 16.3.0
+      typescript:
+        specifier: ~5.8.3
+        version: 5.8.3
+      typescript-eslint:
+        specifier: ^8.35.1
+        version: 8.36.0(eslint@9.30.1)(typescript@5.8.3)
+      vite:
+        specifier: ^7.0.3
+        version: 7.0.3
+
   apps/header-mfe:
     dependencies:
       '@originjs/vite-plugin-federation':
@@ -189,6 +280,188 @@ importers:
         version: 5.8.3
       typescript-eslint:
         specifier: ^8.36.0
+        version: 8.36.0(eslint@9.30.1)(typescript@5.8.3)
+      vite:
+        specifier: ^7.0.3
+        version: 7.0.3
+
+  apps/orders-mfe:
+    dependencies:
+      '@originjs/vite-plugin-federation':
+        specifier: ^1.4.1
+        version: 1.4.1
+      '@radix-ui/react-avatar':
+        specifier: ^1.1.10
+        version: 1.1.10(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-dropdown-menu':
+        specifier: ^2.1.15
+        version: 2.1.15(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-navigation-menu':
+        specifier: ^1.2.13
+        version: 1.2.13(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-select':
+        specifier: ^2.2.5
+        version: 2.2.5(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-separator':
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-slot':
+        specifier: ^1.2.3
+        version: 1.2.3(@types/react@19.1.8)(react@19.1.0)
+      '@tailwindcss/postcss':
+        specifier: ^4.1.11
+        version: 4.1.11
+      '@tailwindcss/vite':
+        specifier: ^4.1.11
+        version: 4.1.11(vite@7.0.3)
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.6)
+      class-variance-authority:
+        specifier: ^0.7.1
+        version: 0.7.1
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      lucide-react:
+        specifier: ^0.525.0
+        version: 0.525.0(react@19.1.0)
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
+      tailwind-merge:
+        specifier: ^3.3.1
+        version: 3.3.1
+      tailwindcss:
+        specifier: ^4.1.11
+        version: 4.1.11
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.30.1
+        version: 9.30.1
+      '@types/react':
+        specifier: ^19.1.8
+        version: 19.1.8
+      '@types/react-dom':
+        specifier: ^19.1.6
+        version: 19.1.6(@types/react@19.1.8)
+      '@vitejs/plugin-react':
+        specifier: ^4.6.0
+        version: 4.6.0(vite@7.0.3)
+      eslint:
+        specifier: ^9.30.1
+        version: 9.30.1
+      eslint-plugin-react-hooks:
+        specifier: ^5.2.0
+        version: 5.2.0(eslint@9.30.1)
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.20
+        version: 0.4.20(eslint@9.30.1)
+      globals:
+        specifier: ^16.3.0
+        version: 16.3.0
+      typescript:
+        specifier: ~5.8.3
+        version: 5.8.3
+      typescript-eslint:
+        specifier: ^8.35.1
+        version: 8.36.0(eslint@9.30.1)(typescript@5.8.3)
+      vite:
+        specifier: ^7.0.3
+        version: 7.0.3
+
+  apps/profile-mfe:
+    dependencies:
+      '@originjs/vite-plugin-federation':
+        specifier: ^1.4.1
+        version: 1.4.1
+      '@radix-ui/react-avatar':
+        specifier: ^1.1.10
+        version: 1.1.10(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-dropdown-menu':
+        specifier: ^2.1.15
+        version: 2.1.15(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-navigation-menu':
+        specifier: ^1.2.13
+        version: 1.2.13(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-select':
+        specifier: ^2.2.5
+        version: 2.2.5(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-separator':
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react-dom@19.1.6)(@types/react@19.1.8)(react-dom@19.1.0)(react@19.1.0)
+      '@radix-ui/react-slot':
+        specifier: ^1.2.3
+        version: 1.2.3(@types/react@19.1.8)(react@19.1.0)
+      '@tailwindcss/postcss':
+        specifier: ^4.1.11
+        version: 4.1.11
+      '@tailwindcss/vite':
+        specifier: ^4.1.11
+        version: 4.1.11(vite@7.0.3)
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.6)
+      class-variance-authority:
+        specifier: ^0.7.1
+        version: 0.7.1
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      lucide-react:
+        specifier: ^0.525.0
+        version: 0.525.0(react@19.1.0)
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
+      tailwind-merge:
+        specifier: ^3.3.1
+        version: 3.3.1
+      tailwindcss:
+        specifier: ^4.1.11
+        version: 4.1.11
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.30.1
+        version: 9.30.1
+      '@types/react':
+        specifier: ^19.1.8
+        version: 19.1.8
+      '@types/react-dom':
+        specifier: ^19.1.6
+        version: 19.1.6(@types/react@19.1.8)
+      '@vitejs/plugin-react':
+        specifier: ^4.6.0
+        version: 4.6.0(vite@7.0.3)
+      eslint:
+        specifier: ^9.30.1
+        version: 9.30.1
+      eslint-plugin-react-hooks:
+        specifier: ^5.2.0
+        version: 5.2.0(eslint@9.30.1)
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.20
+        version: 0.4.20(eslint@9.30.1)
+      globals:
+        specifier: ^16.3.0
+        version: 16.3.0
+      typescript:
+        specifier: ~5.8.3
+        version: 5.8.3
+      typescript-eslint:
+        specifier: ^8.35.1
         version: 8.36.0(eslint@9.30.1)(typescript@5.8.3)
       vite:
         specifier: ^7.0.3
