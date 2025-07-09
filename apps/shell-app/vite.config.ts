@@ -22,6 +22,8 @@ export default defineConfig({
         cartMfe: "http://localhost:3003/cart-mfe/assets/remoteEntry.js",
         ordersMfe: "http://localhost:3004/orders-mfe/assets/remoteEntry.js",
         profileMfe: "http://localhost:3005/profile-mfe/assets/remoteEntry.js",
+        checkoutMfe: "http://localhost:3006/checkout-mfe/assets/remoteEntry.js",
+        paymentMfe: "http://localhost:3007/payment-mfe/assets/remoteEntry.js",
       },
       shared: ["react", "react-dom", "react-router-dom"],
     }),

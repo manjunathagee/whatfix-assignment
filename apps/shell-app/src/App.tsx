@@ -4,6 +4,8 @@ import Dashboard from './pages/Dashboard'
 import Cart from './pages/Cart'
 import Orders from './pages/Orders'
 import Profile from './pages/Profile'
+import Checkout from './pages/Checkout'
+import Payment from './pages/Payment'
 import ErrorBoundary from './components/ErrorBoundary'
 import { ConfigurationProvider } from './contexts/ConfigurationContext'
 
@@ -18,8 +20,8 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/orders" element={<Orders />} />
-              <Route path="/checkout" element={<Dashboard />} />
-              <Route path="/payment" element={<Dashboard />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/payment" element={<Payment />} />
             </Routes>
           </Layout>
         </Router>

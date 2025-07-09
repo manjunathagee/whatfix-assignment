@@ -12,7 +12,13 @@
       "Bash(timeout 10s pnpm dev)",
       "Bash(pnpm run dev:preview:*)",
       "Bash(pnpm -w run dev:preview)",
-      "Bash(pnpm --filter shell-app build)"
+      "Bash(pnpm --filter shell-app build)",
+      "Bash(pnpm create:*)",
+      "Bash(mv:*)",
+      "Bash(pnpm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }
