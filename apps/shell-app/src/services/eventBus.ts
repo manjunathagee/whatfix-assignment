@@ -23,6 +23,11 @@ export interface EventTypes {
   'orders:update': { orderId: string; status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled' };
   'orders:sync': { orders: any[] };
   
+  // Configuration events
+  'config:change': { persona: string; config: any; permissions: string[]; globalSettings: any };
+  'config:reload': void;
+  'personas:sync': { personas: any[] };
+  
   // General events
   'state:sync': { type: string; payload: any };
   'mfe:ready': { mfeName: string };

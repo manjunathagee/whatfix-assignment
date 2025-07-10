@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useEffect, ReactNode } from 'react'
 import type { DashboardConfig, UserPersona } from '../types'
-import { configurationService } from '../services/configurationService'
+import { configLoader } from '../services/configLoader'
+import { eventBus } from '../services/eventBus'
 
 interface ConfigurationState {
   config: DashboardConfig | null
@@ -9,15 +10,18 @@ interface ConfigurationState {
   loading: boolean
   error: string | null
   lastUpdated: string | null
+  permissions: string[]
+  globalSettings: any
 }
 
 type ConfigurationAction =
   | { type: 'LOAD_START' }
-  | { type: 'LOAD_SUCCESS'; payload: { config: DashboardConfig; timestamp: string } }
+  | { type: 'LOAD_SUCCESS'; payload: { config: DashboardConfig; timestamp: string; permissions: string[]; globalSettings: any } }
   | { type: 'LOAD_ERROR'; payload: string }
   | { type: 'SET_PERSONAS'; payload: UserPersona[] }
   | { type: 'CHANGE_PERSONA'; payload: string }
   | { type: 'CLEAR_ERROR' }
+  | { type: 'RELOAD_CONFIG' }
 
 interface ConfigurationContextType {
   state: ConfigurationState
@@ -25,15 +29,19 @@ interface ConfigurationContextType {
   changePersona: (personaId: string) => Promise<void>
   clearError: () => void
   refreshConfiguration: () => Promise<void>
+  reloadConfiguration: () => void
+  hasPermission: (permission: string) => boolean
 }
 
 const initialState: ConfigurationState = {
   config: null,
   personas: [],
-  currentPersona: 'default-user',
+  currentPersona: configLoader.getDefaultRole(),
   loading: false,
   error: null,
   lastUpdated: null,
+  permissions: [],
+  globalSettings: configLoader.getGlobalSettings(),
 }
 
 function configurationReducer(state: ConfigurationState, action: ConfigurationAction): ConfigurationState {
@@ -50,6 +58,8 @@ function configurationReducer(state: ConfigurationState, action: ConfigurationAc
         loading: false,
         config: action.payload.config,
         lastUpdated: action.payload.timestamp,
+        permissions: action.payload.permissions,
+        globalSettings: action.payload.globalSettings,
         error: null,
       }
     case 'LOAD_ERROR':
@@ -73,6 +83,12 @@ function configurationReducer(state: ConfigurationState, action: ConfigurationAc
         ...state,
         error: null,
       }
+    case 'RELOAD_CONFIG':
+      return {
+        ...state,
+        personas: configLoader.loadPersonas(),
+        globalSettings: configLoader.getGlobalSettings(),
+      }
     default:
       return state
   }
@@ -85,10 +101,10 @@ interface ConfigurationProviderProps {
   initialPersona?: string
 }
 
-export function ConfigurationProvider({ children, initialPersona = 'default-user' }: ConfigurationProviderProps) {
+export function ConfigurationProvider({ children, initialPersona }: ConfigurationProviderProps) {
   const [state, dispatch] = useReducer(configurationReducer, {
     ...initialState,
-    currentPersona: initialPersona,
+    currentPersona: initialPersona || configLoader.getDefaultRole(),
   })
 
   const loadConfiguration = async (userId?: string) => {
@@ -96,20 +112,32 @@ export function ConfigurationProvider({ children, initialPersona = 'default-user
     dispatch({ type: 'LOAD_START' })
 
     try {
-      const response = await configurationService.loadConfiguration(targetUserId)
+      const config = configLoader.loadConfiguration(targetUserId)
+      const permissions = configLoader.getRolePermissions(targetUserId)
+      const globalSettings = configLoader.getGlobalSettings()
       
-      if (response.success && response.data) {
+      if (config) {
         dispatch({
           type: 'LOAD_SUCCESS',
           payload: {
-            config: response.data,
-            timestamp: response.timestamp,
+            config,
+            timestamp: new Date().toISOString(),
+            permissions,
+            globalSettings,
           },
+        })
+
+        // Emit configuration change event
+        eventBus.emit('config:change', { 
+          persona: targetUserId, 
+          config, 
+          permissions,
+          globalSettings 
         })
       } else {
         dispatch({
           type: 'LOAD_ERROR',
-          payload: response.error || 'Failed to load configuration',
+          payload: `Configuration not found for user: ${targetUserId}`,
         })
       }
     } catch (error) {
@@ -130,16 +158,26 @@ export function ConfigurationProvider({ children, initialPersona = 'default-user
   }
 
   const refreshConfiguration = async () => {
-    // Clear cache and reload
-    configurationService.clearCache(state.currentPersona)
+    // Reload configuration from unified config
+    configLoader.reloadConfiguration()
     await loadConfiguration()
+  }
+
+  const reloadConfiguration = () => {
+    // Reload configuration and personas from unified config
+    configLoader.reloadConfiguration()
+    dispatch({ type: 'RELOAD_CONFIG' })
+  }
+
+  const hasPermission = (permission: string): boolean => {
+    return state.permissions.includes(permission)
   }
 
   // Load personas on mount
   useEffect(() => {
-    const loadPersonas = async () => {
+    const loadPersonas = () => {
       try {
-        const personas = await configurationService.loadPersonas()
+        const personas = configLoader.loadPersonas()
         dispatch({ type: 'SET_PERSONAS', payload: personas })
       } catch (error) {
         console.error('Failed to load personas:', error)
@@ -160,6 +198,8 @@ export function ConfigurationProvider({ children, initialPersona = 'default-user
     changePersona,
     clearError,
     refreshConfiguration,
+    reloadConfiguration,
+    hasPermission,
   }
 
   return (

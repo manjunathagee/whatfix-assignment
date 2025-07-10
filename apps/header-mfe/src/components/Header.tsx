@@ -15,11 +15,20 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 
+interface Persona {
+  id: string;
+  name: string;
+  description: string;
+  configurationId?: string;
+}
+
 interface HeaderProps {
   title?: string;
   onCategoryClick?: (category: string) => void;
   onUserSwitch?: (userId: string) => void;
   currentUser?: string;
+  personas?: Persona[];
+  permissions?: string[];
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -27,9 +36,13 @@ const Header: React.FC<HeaderProps> = ({
   onCategoryClick = () => {},
   onUserSwitch = () => {},
   currentUser = "default-user",
+  personas = [],
+  permissions = [],
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>("");
   // Navigation is handled by the shell app through onCategoryClick prop
+
+  console.log("[DEBUG] permissions", permissions);
 
   const categories = [
     { id: "home", name: "Home", icon: "🏠" },
@@ -39,7 +52,8 @@ const Header: React.FC<HeaderProps> = ({
     { id: "books", name: "Books", icon: "📚" },
   ];
 
-  const users = [
+  // Use personas from props or fallback to default users
+  const fallbackUsers = [
     {
       id: "default-user",
       name: "Default User",
@@ -65,8 +79,14 @@ const Header: React.FC<HeaderProps> = ({
       name: "Guest User",
       description: "Temporary access user",
     },
+    {
+      id: "root-user",
+      name: "Root User",
+      description: "Full access to all features",
+    },
   ];
 
+  const users = personas.length > 0 ? personas : fallbackUsers;
   const currentUserInfo =
     users.find((user) => user.id === currentUser) || users[0];
 

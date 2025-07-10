@@ -48,6 +48,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           onCartClick={handleCartClick}
           onUserSwitch={handleUserSwitch}
           currentUser={state.currentPersona}
+          personas={state.personas}
+          permissions={state.permissions}
         />
       </Suspense>
 

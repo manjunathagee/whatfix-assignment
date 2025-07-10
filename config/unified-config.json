@@ -1,0 +1,456 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2024-01-15T10:00:00Z",
+
+  "roles": {
+    "guest-user": {
+      "id": "guest-user",
+      "name": "Guest User",
+      "description": "Temporary access user with read-only permissions",
+      "permissions": ["read"],
+      "theme": "light",
+      "layout": "minimal",
+      "moduleGroups": [
+        {
+          "template": "profile",
+          "description": "Basic profile management",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "dashboard",
+          "description": "Basic dashboard view",
+          "permissions": ["read"]
+        },
+        {
+          "template": "cart",
+          "description": "Shopping cart (view only)",
+          "permissions": ["read"]
+        }
+      ],
+      "featureTemplate": "basic",
+      "featureOverrides": {
+        "notifications": false
+      }
+    },
+    "basic-user": {
+      "id": "basic-user",
+      "name": "Basic User",
+      "description": "Limited access user with minimal features",
+      "permissions": ["read"],
+      "theme": "light",
+      "layout": "simple",
+      "moduleGroups": [
+        {
+          "template": "dashboard",
+          "description": "Basic dashboard view",
+          "permissions": ["read"]
+        },
+        {
+          "template": "profile",
+          "description": "Basic profile management",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "cart",
+          "description": "Shopping cart",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "orders",
+          "description": "Order history (view only)",
+          "permissions": ["read"]
+        }
+      ],
+      "featureTemplate": "basic"
+    },
+    "default-user": {
+      "id": "default-user",
+      "name": "Default User",
+      "description": "Standard user with balanced features and moderate access",
+      "permissions": ["read", "write"],
+      "theme": "light",
+      "layout": "default",
+      "moduleGroups": [
+        {
+          "template": "dashboard",
+          "description": "Main dashboard view",
+          "permissions": ["read"]
+        },
+        {
+          "template": "profile",
+          "description": "User profile management",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "cart",
+          "description": "Shopping cart",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "orders",
+          "description": "Order history",
+          "permissions": ["read"]
+        },
+        {
+          "template": "checkout",
+          "description": "Checkout process",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "payment",
+          "description": "Payment management",
+          "permissions": ["read", "write"]
+        }
+      ],
+      "featureTemplate": "standard"
+    },
+    "power-user": {
+      "id": "power-user",
+      "name": "Power User",
+      "description": "Advanced user with enhanced features and analytics access",
+      "permissions": ["read", "write", "advanced"],
+      "theme": "light",
+      "layout": "advanced",
+      "moduleGroups": [
+        {
+          "template": "dashboard",
+          "description": "Advanced dashboard with analytics",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "profile",
+          "description": "Advanced profile management",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "cart",
+          "description": "Advanced shopping cart",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "orders",
+          "description": "Advanced order management",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "checkout",
+          "description": "Advanced checkout process",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "payment",
+          "description": "Advanced payment management",
+          "permissions": ["read", "write"]
+        },
+        {
+          "template": "analytics",
+          "description": "User analytics and reporting",
+          "permissions": ["read", "write"]
+        }
+      ],
+      "featureTemplate": "advanced"
+    },
+    "admin-user": {
+      "id": "admin-user",
+      "name": "Admin User",
+      "description": "Full access to all features with administrative capabilities",
+      "permissions": ["read", "write", "admin", "system"],
+      "theme": "light",
+      "layout": "compact",
+      "moduleGroups": [
+        {
+          "template": "dashboard",
+          "displayName": "Admin Dashboard",
+          "description": "Administrative dashboard with system overview",
+          "permissions": ["read", "write", "admin", "system"]
+        },
+        {
+          "template": "profile",
+          "description": "Full profile management with admin privileges",
+          "permissions": ["read", "write", "admin", "system"]
+        },
+        {
+          "template": "cart",
+          "description": "Full cart management with system access",
+          "permissions": ["read", "write", "admin", "system"]
+        },
+        {
+          "template": "orders",
+          "description": "Complete order management with admin controls",
+          "permissions": ["read", "write", "admin", "system"]
+        },
+        {
+          "template": "checkout",
+          "description": "Full checkout system management",
+          "permissions": ["read", "write", "admin", "system"]
+        },
+        {
+          "template": "payment",
+          "description": "Complete payment system administration",
+          "permissions": ["read", "write", "admin", "system"]
+        },
+        {
+          "template": "analytics",
+          "description": "System-wide analytics and reporting",
+          "permissions": ["read", "write", "admin", "system"]
+        },
+        {
+          "template": "admin",
+          "description": "System administration and configuration",
+          "permissions": ["read", "write", "admin", "system"]
+        },
+        {
+          "template": "users",
+          "description": "User management and permissions",
+          "permissions": ["read", "write", "admin", "system"]
+        }
+      ],
+      "featureTemplate": "admin"
+    },
+    "root-user": {
+      "id": "root-user",
+      "name": "Root User",
+      "description": "System-level access with all privileges",
+      "permissions": ["read", "write", "admin", "system", "root"],
+      "theme": "dark",
+      "layout": "full",
+      "moduleGroups": [
+        {
+          "template": "dashboard",
+          "displayName": "System Dashboard",
+          "description": "System-level dashboard with full metrics",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "profile",
+          "description": "System profile management",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "cart",
+          "description": "System cart management",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "orders",
+          "description": "System order management",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "checkout",
+          "description": "System checkout management",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "payment",
+          "description": "System payment management",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "analytics",
+          "description": "System-wide analytics and deep insights",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "admin",
+          "description": "System administration and configuration",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "users",
+          "description": "Complete user management system",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        },
+        {
+          "template": "system",
+          "description": "Low-level system management",
+          "permissions": ["read", "write", "admin", "system", "root"]
+        }
+      ],
+      "featureTemplate": "system"
+    }
+  },
+
+  "moduleTemplates": {
+    "dashboard": {
+      "name": "dashboard",
+      "displayName": "Dashboard",
+      "path": "/",
+      "component": "Dashboard",
+      "icon": "📊",
+      "category": "core",
+      "order": 1
+    },
+    "profile": {
+      "name": "profile",
+      "displayName": "Profile",
+      "path": "/profile",
+      "component": "Profile",
+      "icon": "👤",
+      "category": "user",
+      "order": 2
+    },
+    "cart": {
+      "name": "cart",
+      "displayName": "Cart",
+      "path": "/cart",
+      "component": "Cart",
+      "icon": "🛒",
+      "category": "shopping",
+      "order": 3
+    },
+    "orders": {
+      "name": "orders",
+      "displayName": "Orders",
+      "path": "/orders",
+      "component": "Orders",
+      "icon": "📦",
+      "category": "shopping",
+      "order": 4
+    },
+    "checkout": {
+      "name": "checkout",
+      "displayName": "Checkout",
+      "path": "/checkout",
+      "component": "Checkout",
+      "icon": "💳",
+      "category": "shopping",
+      "order": 5
+    },
+    "payment": {
+      "name": "payment",
+      "displayName": "Payment",
+      "path": "/payment",
+      "component": "Payment",
+      "icon": "💳",
+      "category": "shopping",
+      "order": 6
+    },
+    "analytics": {
+      "name": "analytics",
+      "displayName": "Analytics",
+      "path": "/analytics",
+      "component": "Analytics",
+      "icon": "📈",
+      "category": "analytics",
+      "order": 7
+    },
+    "admin": {
+      "name": "admin",
+      "displayName": "Admin Panel",
+      "path": "/admin",
+      "component": "Admin",
+      "icon": "⚙️",
+      "category": "admin",
+      "order": 8
+    },
+    "users": {
+      "name": "users",
+      "displayName": "User Management",
+      "path": "/users",
+      "component": "Users",
+      "icon": "👥",
+      "category": "admin",
+      "order": 9
+    },
+    "system": {
+      "name": "system",
+      "displayName": "System Management",
+      "path": "/system",
+      "component": "System",
+      "icon": "🖥️",
+      "category": "system",
+      "order": 10
+    }
+  },
+
+  "featureTemplates": {
+    "basic": {
+      "analytics": false,
+      "personalization": false,
+      "notifications": true,
+      "advancedSearch": false,
+      "wishlist": false,
+      "bulkOperations": false,
+      "exportData": false,
+      "advancedFilters": false,
+      "systemAccess": false,
+      "userManagement": false,
+      "configurationManagement": false,
+      "auditLogs": false
+    },
+    "standard": {
+      "analytics": false,
+      "personalization": true,
+      "notifications": true,
+      "advancedSearch": true,
+      "wishlist": true,
+      "bulkOperations": false,
+      "exportData": false,
+      "advancedFilters": false,
+      "systemAccess": false,
+      "userManagement": false,
+      "configurationManagement": false,
+      "auditLogs": false
+    },
+    "advanced": {
+      "analytics": true,
+      "personalization": true,
+      "notifications": true,
+      "advancedSearch": true,
+      "wishlist": true,
+      "bulkOperations": true,
+      "exportData": true,
+      "advancedFilters": true,
+      "systemAccess": false,
+      "userManagement": false,
+      "configurationManagement": false,
+      "auditLogs": false
+    },
+    "admin": {
+      "analytics": true,
+      "personalization": true,
+      "notifications": true,
+      "advancedSearch": true,
+      "wishlist": true,
+      "bulkOperations": true,
+      "exportData": true,
+      "advancedFilters": true,
+      "systemAccess": true,
+      "userManagement": true,
+      "configurationManagement": true,
+      "auditLogs": true
+    },
+    "system": {
+      "analytics": true,
+      "personalization": true,
+      "notifications": true,
+      "advancedSearch": true,
+      "wishlist": true,
+      "bulkOperations": true,
+      "exportData": true,
+      "advancedFilters": true,
+      "systemAccess": true,
+      "userManagement": true,
+      "configurationManagement": true,
+      "auditLogs": true,
+      "systemLogs": true,
+      "databaseAccess": true,
+      "serverManagement": true
+    }
+  },
+
+  "globalSettings": {
+    "defaultRole": "default-user",
+    "allowRoleSwitch": true,
+    "sessionTimeout": 3600,
+    "maxLoginAttempts": 3,
+    "passwordPolicy": {
+      "minLength": 8,
+      "requireUppercase": true,
+      "requireLowercase": true,
+      "requireNumbers": true,
+      "requireSpecialChars": false
+    }
+  }
+}
